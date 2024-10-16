@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="lt">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mokomės abėcėlę</title>
-  
+  <title>Mokomės skaičius</title>
+
   <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json">
-  
+
   <style>
     /* General Styles */
     body {
-      font-family: 'Comic Sans MS', sans-serif; 
+      font-family: 'Comic Sans MS', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -100,7 +101,8 @@
       border: 3px solid transparent;
     }
 
-    .letter:hover, .letter:focus {
+    .letter:hover,
+    .letter:focus {
       transform: scale(1.2);
       box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
       border-color: #FF7043;
@@ -116,16 +118,39 @@
       animation: shake 0.3s ease;
     }
 
+    .letter.active {
+      transform: scale(1.2);
+      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+      border-color: #FF7043;
+    }
+
     /* Animations */
     @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-20px);
+      }
     }
 
     @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      75% { transform: translateX(5px); }
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      25% {
+        transform: translateX(-5px);
+      }
+
+      75% {
+        transform: translateX(5px);
+      }
     }
 
     /* Confetti Styles */
@@ -154,6 +179,7 @@
         transform: translateY(-100vh) rotate(0deg);
         opacity: 1;
       }
+
       100% {
         transform: translateY(100vh) rotate(720deg);
         opacity: 0;
@@ -196,11 +222,12 @@
     }
   </style>
 </head>
+
 <body>
-  <h1>Mokomės abėcėlę!</h1>
+  <h1>Mokomės skaičius!</h1>
   <div id="level-indicator">Lygis: 1</div>
   <div id="feedback-message"></div>
-  <button id="play-button" aria-label="Klausyti raidės">Klausyti raidės</button>
+  <button id="play-button" aria-label="Klausyti skaičiaus">Klausyti skaičiaus</button>
   <div id="letter-container"></div>
   <div id="confetti-container"></div>
 
@@ -239,7 +266,7 @@
     let firstLoad = true
 
     // Retrieve user data
-  
+
     // Track letter performance for adaptive learning
     let letterPerformance = {};
     const performance = localStorage.getItem('performance');
@@ -317,14 +344,14 @@
     }
 
     function playSucessSound(levelComplete = false) {
-        let successAudioFiles = ['audio/tau_pavyko.m4a', 'audio/valio.m4a', 'audio/puiku.m4a'];
-        if (levelComplete) {
-          successAudioFiles = ['audio/applause.mp3'];
-        }
-        const randomIndex = Math.floor(Math.random() * successAudioFiles.length);
-        successAudio.src = successAudioFiles[randomIndex];
-        successAudio.load(); // Ensure the audio is loaded before playing
-        successAudio.play();
+      let successAudioFiles = ['audio/tau_pavyko.m4a', 'audio/valio.m4a', 'audio/puiku.m4a'];
+      if (levelComplete) {
+        successAudioFiles = ['audio/applause.mp3'];
+      }
+      const randomIndex = Math.floor(Math.random() * successAudioFiles.length);
+      successAudio.src = successAudioFiles[randomIndex];
+      successAudio.load(); // Ensure the audio is loaded before playing
+      successAudio.play();
     }
 
     // Create confetti effect
@@ -380,12 +407,12 @@
         }
 
         if (gameFinished) {
-            playSucessSound(true)
-            showFeedback('Sveikiname! Užbaigėte visus lygius.');
-            level = 1; // Reset level or implement further logic
-            localStorage.setItem('performance', JSON.stringify(letterPerformance));
+          playSucessSound(true)
+          showFeedback('Sveikiname! Užbaigėte visus lygius.');
+          level = 1; // Reset level or implement further logic
+          localStorage.setItem('performance', JSON.stringify(letterPerformance));
         }
-        
+
         letterPerformance[selectedLetterChar].correct += 1;
 
         setTimeout(() => {
@@ -397,11 +424,11 @@
         showFeedback('Bandyk dar kartą!', false);
         letterPerformance[selectedLetterChar].incorrect += 1;
 
-        if (tried === 0){
+        if (tried === 0) {
           letterPerformance[currentLetter.char].incorrect += 1;
         }
 
-        tried ++;
+        tried++;
         setTimeout(() => {
           selectedElement.classList.remove('incorrect');
         }, 500);
@@ -451,4 +478,5 @@
     }
   </script>
 </body>
+
 </html>
